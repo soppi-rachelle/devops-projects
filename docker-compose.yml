@@ -1,0 +1,20 @@
+
+services:
+
+  backend:
+    build: ./backend
+    container_name: devops-backend
+    ports:
+      - "5111:5111"
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: devops-frontend
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_URL: http://192.168.56.10:5111
+    depends_on:
+      - backend
+    restart: unless-stopped
